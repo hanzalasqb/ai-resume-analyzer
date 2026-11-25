@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { analyze, type Analysis } from "./api";
+import { analyze, IS_DEMO, type Analysis } from "./api";
+import { SAMPLE_JOB, SAMPLE_RESUME } from "./demo";
 
 const VERDICT: Record<Analysis["verdict"], string> = {
   strong_fit: "Strong fit", good_fit: "Good fit", partial_fit: "Partial fit", weak_fit: "Weak fit",
@@ -38,12 +39,23 @@ export default function App() {
         <p>Match a resume against any job description — score, skill gaps and interview prep in seconds.</p>
       </header>
 
+      {IS_DEMO && (
+        <div className="card demo-banner">
+          <strong>Live demo</strong> · runs entirely in your browser. Scoring uses the same keyword matcher as the server plus
+          transparent rules in place of the LLM. Run it locally with an API key for full AI analysis.{" "}
+          <a href="https://github.com/hanzalasqb/ai-resume-analyzer">Source code</a>
+        </div>
+      )}
+
       <form onSubmit={submit} className="card form">
+        <button type="button" className="secondary" onClick={() => { setJob(SAMPLE_JOB); setText(SAMPLE_RESUME); setFile(null); }}>
+          Load sample job + resume
+        </button>
         <label>Job description
           <textarea rows={8} value={job} onChange={(e) => setJob(e.target.value)} placeholder="Paste the job description…" required />
         </label>
-        <label>Resume (PDF or TXT)
-          <input type="file" accept=".pdf,.txt" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
+        <label>{IS_DEMO ? "Resume (TXT)" : "Resume (PDF or TXT)"}
+          <input type="file" accept={IS_DEMO ? ".txt,.md" : ".pdf,.txt"} onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
         </label>
         {!file && (
           <label>…or paste resume text
@@ -63,7 +75,7 @@ export default function App() {
             <div>
               <h2>{result.candidateName ?? "Candidate"} · {VERDICT[result.verdict]}</h2>
               <p>{result.summary}</p>
-              <small>AI score {result.matchScore} · keyword score {result.keywordScore} · blended 70/30</small>
+              <small>{IS_DEMO ? "Rule-based" : "AI"} score {result.matchScore} · keyword score {result.keywordScore} · blended 70/30</small>
             </div>
           </section>
           <div className="grid">
