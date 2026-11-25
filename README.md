@@ -12,6 +12,8 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+**[▶ Live demo](https://hanzalasqb.github.io/ai-resume-analyzer/)** · runs in your browser, no sign-up
+
 </div>
 
 ---
@@ -26,6 +28,10 @@
 - **Production hardening** — Helmet, CORS, rate limiting, upload size limits, central error handling
 - **Provider-agnostic** — OpenAI, Groq, Together or local **Ollama** via one env var
 - **Tested & containerised** — Vitest + Supertest with a mocked LLM, Docker Compose, GitHub Actions CI
+
+## 🌐 Live demo mode
+
+The [live demo](https://hanzalasqb.github.io/ai-resume-analyzer/) is the same React client built with `VITE_DEMO=true` and deployed to GitHub Pages by GitHub Actions. It reuses the server's keyword matcher (`server/src/keywords.ts`) and replaces the LLM with transparent rules (seniority, quantified results, resume sections), so it needs no backend or API key. Click **Load sample job + resume** to try it, or run it locally with `npm run dev:demo` in `client/`.
 
 ## 🏗️ Architecture
 

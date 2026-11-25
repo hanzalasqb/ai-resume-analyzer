@@ -18,3 +18,6 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 .chips li { padding: 4px 10px; border-radius: 999px; font-size: 13px; }
 .chips.ok li { background: #14532d; } .chips.warn li { background: #78350f; }
 @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .score { flex-direction: column; text-align: center; } }
+.demo-banner { border-color: #166534; background: #052e16; color: #bbf7d0; font-size: 14px; }
+.demo-banner a { color: #86efac; }
+button.secondary { background: transparent; color: var(--text); border: 1px solid var(--line); margin-bottom: 14px; }
